@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+  font-feature-settings: "locl"0;
+  font-family: Open Sans, sans-serif;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0
+}
+
+;
