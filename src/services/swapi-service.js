@@ -14,7 +14,9 @@ export default class SwapiService {
     const body = await response.json();
 
     if (response.status !== 200) {
-      throw new Error(`Could not fetch ${url}. Recieved status code ${response.status}`);
+      throw new Error(
+        `Could not fetch ${url}. Recieved status code ${response.status}`
+      );
     }
 
     return body;
@@ -26,10 +28,22 @@ export default class SwapiService {
     return response.results;
   }
 
+  // получение конкретного персонажа
+  async getPerson(personId) {
+    const person = await this.getResource(`/people/${personId}`);
+    return this._transformPerson(person);
+  }
+
   // получение всех планет
   async getAllPlanets() {
     const response = await this.getResource('/planets/');
-    return response.results;
+    return response.results.map(this._transformPlanet);
+  }
+
+  // получение конкретной планеты
+  async getPlanet(planetId) {
+    const planet = await this.getResource(`/planets/${planetId}`);
+    return this._transformPlanet(planet);
   }
 
   // получение всех космических кораблей
@@ -38,22 +52,48 @@ export default class SwapiService {
     return response.results;
   }
 
-  // получение конкретного персонажа
-  getPerson = personId => this.getResource(`/people/${personId}`);
-
-  // получение конкретной планеты
-  getPlanet = planetId => this.getResource(`/planets/${planetId}`);
-
   // получение конкретного корабля
-  getStarship = starshipId => this.getResource(`/starships/${starshipId}`);
+  async getStarship(starshipId) {
+    const starship = await this.getResource(`/starships/${starshipId}`);
+    return this._transformStarship(starship);
+  }
+
+  _getExtractId(item) {
+    const idRegExp = /\/([0-9]*)\/$/;
+    return item.url.match(idRegExp)[1];
+  }
+
+  _transformPlanet(planet) {
+    return {
+      id: this._getExtractId(planet),
+      name: planet.name,
+      population: planet.population,
+      rotationPeriod: planet.rotation_period,
+      diameter: planet.diameter,
+    };
+  }
+
+  _transformStarship(starship) {
+    return {
+      id: this._getExtractId(starship),
+      name: starship.name,
+      model: starship.model,
+      manufacturer: starship.manufacturer,
+      costInCredits: starship.costInCredits,
+      length: starship.length,
+      crew: starship.crew,
+      passengers: starship.passengers,
+      cargoCapacity: starship.cargoCapacity,
+    };
+  }
+
+  _transformPerson(person) {
+    return {
+      id: this._getExtractId(person),
+      name: person.name,
+      gender: person.gender,
+      birthYear: person.birthYear,
+      eyeColor: person.eyeColor,
+    };
+  }
 }
-
-const swapi = new SwapiService();
-
-swapi.getAllPeople()
-  .then(body => console.log(body))
-  .catch(error => console.error(error));
-
-swapi.getPerson('1')
-  .then(body => console.log(body))
-  .catch(error => console.error(error));
