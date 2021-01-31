@@ -11,29 +11,33 @@ import './RandomPlanet.css';
 // компонент PlanetView отвечает только за контент, рендеринг содержимого и отделен
 // от основной логики, не знает откуда приходят данные
 
+// Карточка со случайной планетой
 export default class RandomPlanet extends Component {
-  // состояние
+  // состояние компонента
   state = {
-    planet: {},
-    loading: true,
-    error: false,
+    planet: {}, // характеристики планеты
+    loading: true, // индикатор загрузки
+    error: false, // индиктатор ошибки
   };
 
   // API
   swapiService = new SwapiService();
 
-  // обновление контента и состояния компонента по API
+  // обновление состояния компонента по API
   updatePlanet = () => {
-    const id = Math.floor(Math.random() * 25) + 2;
-
+    // случайный id планеты
+    const id = Math.floor(Math.random() * 25) + 3;
+    // запрос к серверу
     this.swapiService
       .getPlanet(id)
       .then(planet => this.setState({ planet, loading: false }))
       .catch(() => this.setState({ error: true, loading: false }));
   };
 
-  constructor() {
-    super();
+  // 1. В конструкторе не должно быть запросов к серверу по API - это плохая практика!
+  // 2. На этапе constructor() компоннет еще не встроен в DOM-дерево (Unmounting), поэтому вызывать setState нельзя!
+  // поэтому вместо constructor() используем componentDidMount()
+  componentDidMount() {
     this.updatePlanet();
   }
 
