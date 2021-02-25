@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SwapiService from '../../services/swapi-service';
 import Spinner from '../Spinner';
+
 import './ItemList.css';
 
 // Список жителей планеты

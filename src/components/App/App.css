@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-feature-settings: "locl"0;
+  font-feature-settings: 'locl' 0;
   font-family: Open Sans, sans-serif;
 }
 
@@ -8,7 +8,17 @@ h1,
 h2,
 h3,
 p {
-  margin: 0
+  margin: 0;
 }
 
-;
+.button-row {
+  margin: 0 0 1rem 0;
+}
+
+.button-row button {
+  margin-right: 1rem;
+}
+
+.stardb-app .row {
+  margin-bottom: 1rem;
+}

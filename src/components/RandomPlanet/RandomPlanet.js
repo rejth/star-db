@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import SwapiService from '../../services/swapi-service';
 import Spinner from '../Spinner';
 import ErrorIndicator from '../ErrorIndicator';
+
 import './RandomPlanet.css';
 
 // В этом компоненте используется паттерн "Разделение обязанностей"
@@ -39,6 +40,12 @@ export default class RandomPlanet extends Component {
   // поэтому вместо constructor() используем componentDidMount()
   componentDidMount() {
     this.updatePlanet();
+    this.interval = setInterval(this.updatePlanet, 10000);
+  }
+
+  // удаляем таймер после удаления компонента
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render() {

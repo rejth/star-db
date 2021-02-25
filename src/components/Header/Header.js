@@ -1,20 +1,21 @@
 import React from 'react';
+
 import './Header.css';
 
 const Header = () => (
-  <div className='header d-flex'>
+  <div className="header d-flex">
     <h3>
-      <a href='#'>Star DB</a>
+      <a href="#">Star DB</a>
     </h3>
-    <ul className='header-links d-flex' >
+    <ul className="header-links d-flex">
       <li>
-        <a href='#'>People</a>
+        <a href="#">People</a>
       </li>
       <li>
-        <a href='#'>Planets</a>
+        <a href="#">Planets</a>
       </li>
       <li>
-        <a href='#'>Starships</a>
+        <a href="#">Starships</a>
       </li>
     </ul>
   </div>

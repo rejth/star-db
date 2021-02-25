@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SwapiService from '../../services/swapi-service';
 import Spinner from '../Spinner';
+
 import './PersonDetails.css';
 
 export default class PersonDetails extends Component {
@@ -33,7 +34,7 @@ export default class PersonDetails extends Component {
   componentDidUpdate(prevProps) {
     // условие нужно, чтобы не было бесконечного цикла в результате обновления state и
     // последующего вызова componentDidUpdate(), что в свою очередь снова вызовет обновление state и т.д.
-    if (this.props.personId !== prevProps) {
+    if (this.props.personId !== prevProps.personId) {
       this.updatePersonDetails();
     }
   }
@@ -45,7 +46,7 @@ export default class PersonDetails extends Component {
       return (
         <React.Fragment>
           <span>Select a person from list!</span>
-          <Spinner />;
+          <Spinner />
         </React.Fragment>
       );
     }
