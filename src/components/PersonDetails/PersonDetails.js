@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SwapiService from '../../services/swapi-service';
 import Spinner from '../Spinner';
+import ErrorButton from '../ErrorButton';
 
 import './PersonDetails.css';
 
@@ -75,6 +76,7 @@ export default class PersonDetails extends Component {
               <span>{eyeColor}</span>
             </li>
           </ul>
+          <ErrorButton />
         </div>
       </div>
     );

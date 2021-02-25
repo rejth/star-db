@@ -22,3 +22,7 @@
 .person-details .list-group-item .term {
   margin-right: 0.9rem;
 }
+
+.person-details button {
+  margin-top: 5px;
+}
