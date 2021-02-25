@@ -23,15 +23,19 @@ export default class ItemList extends Component {
 
   // Функция для создания элемента списка
   renderListItem(arr) {
-    return arr.map(({ id, name }) => (
-      <li
-        className="list-group-item"
-        key={id}
-        onClick={() => this.props.onItemSelected(id)}
-      >
-        {name}
-      </li>
-    ));
+    return arr.map(item => {
+      const { id } = item;
+      const label = this.props.renderItem(item); // здесь применятся паттерн render-функция (см. файл patterns)
+      return (
+        <li
+          className="list-group-item"
+          key={id}
+          onClick={() => this.props.onItemSelected(id)}
+        >
+          {label}
+        </li>
+      );
+    });
   }
 
   render() {
@@ -52,4 +56,5 @@ export default class ItemList extends Component {
 ItemList.propTypes = {
   onItemSelected: PropTypes.func.isRequired,
   getData: PropTypes.func.isRequired,
+  renderItem: PropTypes.func.isRequired,
 };
