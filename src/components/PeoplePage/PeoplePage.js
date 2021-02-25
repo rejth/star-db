@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SwapiService from '../../services/swapi-service';
 import ItemList from '../ItemList';
 import PersonDetails from '../PersonDetails';
 import ErrorIndicator from '../ErrorIndicator';
@@ -14,9 +15,12 @@ export default class PeoplePage extends Component {
     hasError: false,
   };
 
-  /*eslint-disable no-unused-vars*/
+  // API
+  swapiService = new SwapiService();
+
   // аргументы error и info дают много полезной инфы в браузере при возникновении ошибки
   // включаем debugger, далее см. Scope -> Local в браузере
+  /*eslint-disable no-unused-vars*/
   componentDidCatch(error, info) {
     this.setState({
       hasError: true,
@@ -35,7 +39,10 @@ export default class PeoplePage extends Component {
     return (
       <div className="row mb2">
         <div className="col-md-6">
-          <ItemList onItemSelected={this.onPersonSelected} />
+          <ItemList
+            onItemSelected={this.onPersonSelected}
+            getData={this.swapiService.getAllPeople}
+          />
         </div>
         <div className="col-md-6">
           <PersonDetails personId={this.state.selectedPerson} />

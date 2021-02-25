@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import SwapiService from '../../services/swapi-service';
 import Spinner from '../Spinner';
 
 import './ItemList.css';
@@ -9,17 +8,15 @@ import './ItemList.css';
 export default class ItemList extends Component {
   // состояние компонента
   state = {
-    peopleList: null, // список всех персонажей
+    itemList: null, // список всех сущностей
   };
-
-  // API
-  swapiService = new SwapiService();
 
   // componentDidMount() - best practice для получения данных от сервера по API
   componentDidMount() {
-    this.swapiService.getAllPeople().then(peopleList => {
+    const { getData } = this.props;
+    getData().then(itemList => {
       this.setState({
-        peopleList,
+        itemList,
       });
     });
   }
@@ -38,13 +35,11 @@ export default class ItemList extends Component {
   }
 
   render() {
-    const { peopleList } = this.state;
+    const { itemList } = this.state;
 
-    if (!peopleList) {
-      return <Spinner />;
-    }
+    if (!itemList) return <Spinner />;
 
-    const items = this.renderListItem(peopleList);
+    const items = this.renderListItem(itemList);
 
     return (
       <div className="item-list">
@@ -56,4 +51,5 @@ export default class ItemList extends Component {
 
 ItemList.propTypes = {
   onItemSelected: PropTypes.func.isRequired,
+  getData: PropTypes.func.isRequired,
 };

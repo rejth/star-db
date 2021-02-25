@@ -9,7 +9,7 @@ export default class SwapiService {
   _baseUrl = 'https://swapi.dev/api';
 
   // получение данных по API
-  async getResource(url) {
+  getResource = async url => {
     const response = await fetch(`${this._baseUrl}${url}`);
     const body = await response.json();
 
@@ -20,43 +20,43 @@ export default class SwapiService {
     }
 
     return body;
-  }
+  };
 
   // получение всех персонажей
-  async getAllPeople() {
+  getAllPeople = async () => {
     const response = await this.getResource('/people/');
     return response.results.map(this._transformPerson);
-  }
+  };
 
   // получение конкретного персонажа
-  async getPerson(personId) {
+  getPerson = async personId => {
     const person = await this.getResource(`/people/${personId}`);
     return this._transformPerson(person);
-  }
+  };
 
   // получение всех планет
-  async getAllPlanets() {
+  getAllPlanets = async () => {
     const response = await this.getResource('/planets/');
     return response.results.map(this._transformPlanet);
-  }
+  };
 
   // получение конкретной планеты
-  async getPlanet(planetId) {
+  getPlanet = async planetId => {
     const planet = await this.getResource(`/planets/${planetId}`);
     return this._transformPlanet(planet);
-  }
+  };
 
   // получение всех космических кораблей
-  async getAllStarships() {
+  getAllStarships = async () => {
     const response = await this.getResource('/starships/');
     return response.results;
-  }
+  };
 
   // получение конкретного корабля
-  async getStarship(starshipId) {
+  getStarship = async starshipId => {
     const starship = await this.getResource(`/starships/${starshipId}`);
     return this._transformStarship(starship);
-  }
+  };
 
   _getExtractId = item => {
     const idRegExp = /\/([0-9]*)\/$/;
