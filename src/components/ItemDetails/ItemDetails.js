@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import SwapiService from '../../services/swapi-service';
 import Spinner from '../Spinner';
 import ErrorButton from '../ErrorButton';
 
@@ -9,57 +8,54 @@ import './ItemDetails.css';
 export default class ItemDetails extends Component {
   // состояние компонента
   state = {
-    person: null, // характеристики персонажа
+    item: null, // характеристики сущности {}
+    image: '', // картинка сущности
   };
 
-  // API
-  swapiService = new SwapiService();
+  // обновление карточки сущности
+  updateItemDetails() {
+    const { itemId, getData, getImageUrl } = this.props;
 
-  // обновление карточки персонажа
-  updatePersonDetails() {
-    const { personId } = this.props;
+    if (!itemId) return;
 
-    if (!personId) return;
-
-    this.swapiService.getPerson(personId).then(person => {
-      this.setState({ person });
+    getData(itemId).then(item => {
+      this.setState({ item, image: getImageUrl(itemId) });
     });
   }
 
-  // показываем карточку персонажа в момент подключения компонента в DOM-дерево
+  // показываем карточку сущности в момент подключения компонента в DOM-дерево
   componentDidMount() {
-    this.updatePersonDetails();
+    this.updateItemDetails();
   }
 
   // обновляем компонент, когда придет новый props
   componentDidUpdate(prevProps) {
     // условие нужно, чтобы не было бесконечного цикла в результате обновления state и
     // последующего вызова componentDidUpdate(), что в свою очередь снова вызовет обновление state и т.д.
-    if (this.props.personId !== prevProps.personId) {
-      this.updatePersonDetails();
+    if (this.props.itemId !== prevProps.itemId) {
+      this.updateItemDetails();
     }
   }
 
   render() {
     // при первой инцициализации компонента id = null
     // чтобы избежать ошибки, делаем проверку
-    if (!this.state.person) {
+    if (!this.state.item) {
       return (
         <React.Fragment>
-          <span>Select an entity from list!</span>
+          <span>Select an item from list!</span>
           <Spinner />
         </React.Fragment>
       );
     }
 
-    const { id, name, gender, birthYear, eyeColor } = this.state.person;
+    const { name, gender, birthYear, eyeColor } = this.state.item;
+
+    const image = this.state.image;
 
     return (
-      <div className="person-details card">
-        <img
-          className="person-image"
-          src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
-        ></img>
+      <div className="item-details card">
+        <img className="item-image" src={image}></img>
         <div className="card-body">
           <h3>{name}</h3>
           <ul className="list-group list-group-flush">
@@ -84,10 +80,11 @@ export default class ItemDetails extends Component {
 }
 
 ItemDetails.propTypes = {
-  personId: PropTypes.string,
-  id: PropTypes.string,
+  itemId: PropTypes.string,
   name: PropTypes.string,
   gender: PropTypes.string,
   birthYear: PropTypes.string,
   eyeColor: PropTypes.string,
+  getData: PropTypes.func.isRequired,
+  getImageUrl: PropTypes.func.isRequired,
 };

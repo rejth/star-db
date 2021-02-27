@@ -7,6 +7,7 @@ export default class SwapiService {
   // это приватная часть класса, таким образом мы говорим другим разработчикам,
   // что это переменная, которую не нужно изменять снаружи класса
   _baseUrl = 'https://swapi.dev/api';
+  _baseImageUrl = 'https://starwars-visualguide.com/assets/img';
 
   // получение данных по API
   getResource = async url => {
@@ -21,6 +22,16 @@ export default class SwapiService {
 
     return body;
   };
+
+  // получение картинки
+  getPersonImageUrl = personId =>
+    `${this._baseImageUrl}/characters/${personId}.jpg`;
+
+  getStarshipImageUrl = starshipId =>
+    `${this._baseImageUrl}/starships/${starshipId}.jpg`;
+
+  getPlanetImageUrl = planetId =>
+    `${this._baseImageUrl}/planets/${planetId}.jpg`;
 
   // получение всех персонажей
   getAllPeople = async () => {

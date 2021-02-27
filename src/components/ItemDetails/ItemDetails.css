@@ -1,4 +1,4 @@
-.person-details {
+.item-details {
   display: flex;
   flex-direction: row;
   padding: 1rem;
@@ -9,20 +9,20 @@
   padding-left: 1.24rem;
 }
 
-.person-image {
+.item-image {
   width: 30%;
   height: 30%;
   border-radius: 10px;
 }
 
-.person-details .list-group-item {
+.item-details .list-group-item {
   padding: 0.25rem;
 }
 
-.person-details .list-group-item .term {
+.item-details .list-group-item .term {
   margin-right: 0.9rem;
 }
 
-.person-details button {
+.item-details button {
   margin-top: 5px;
 }
