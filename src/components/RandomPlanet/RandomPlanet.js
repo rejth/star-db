@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SwapiService from '../../services/swapi-service';
 import Spinner from '../Spinner';
-import ErrorIndicator from '../ErrorIndicator';
+import ErrorBoundry from '../ErrorBoundry';
 
 import './RandomPlanet.css';
 
@@ -18,7 +18,6 @@ export default class RandomPlanet extends Component {
   state = {
     planet: {}, // характеристики планеты
     loading: true, // индикатор загрузки
-    error: false, // индиктатор ошибки
   };
 
   // API
@@ -32,7 +31,7 @@ export default class RandomPlanet extends Component {
     this.swapiService
       .getPlanet(id)
       .then(planet => this.setState({ planet, loading: false }))
-      .catch(() => this.setState({ error: true, loading: false }));
+      .catch(() => this.setState({ loading: false }));
   };
 
   // 1. В конструкторе не должно быть запросов к серверу по API - это плохая практика!
@@ -49,19 +48,19 @@ export default class RandomPlanet extends Component {
   }
 
   render() {
-    const { planet, loading, error } = this.state;
-    const hasData = !(loading || error);
+    const { planet, loading } = this.state;
+    const hasData = !loading;
 
     const spinner = loading ? <Spinner /> : null;
     const content = hasData ? <PlanetView planet={planet} /> : null;
-    const errorMessage = error ? <ErrorIndicator /> : null;
 
     return (
-      <div className="random-planet jumbotron rounded">
-        {errorMessage}
-        {spinner}
-        {content}
-      </div>
+      <ErrorBoundry>
+        <div className="random-planet jumbotron rounded">
+          {spinner}
+          {content}
+        </div>
+      </ErrorBoundry>
     );
   }
 }

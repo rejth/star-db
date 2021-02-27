@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import SwapiService from '../../services/swapi-service';
 import ItemList from '../ItemList';
-import PersonDetails from '../PersonDetails';
+import ItemDetails from '../ItemDetails';
+import RowEntity from '../RowEntity';
 import ErrorIndicator from '../ErrorIndicator';
+import ErrorBoundry from '../ErrorBoundry';
 
 // этот компонент нужен для реализации паттерна Error Boundary, чтобы функция componentDidCatch() в App,
 // не останавливала ВСЕ приложение в случае ошибки в одном из компонентов приложения
@@ -12,20 +14,10 @@ import ErrorIndicator from '../ErrorIndicator';
 export default class PeoplePage extends Component {
   state = {
     selectedPerson: '3',
-    hasError: false,
   };
 
   // API
   swapiService = new SwapiService();
-
-  // аргументы error и info дают много полезной инфы в браузере при возникновении ошибки
-  // включаем debugger, далее см. Scope -> Local в браузере
-  /*eslint-disable no-unused-vars*/
-  componentDidCatch(error, info) {
-    this.setState({
-      hasError: true,
-    });
-  }
 
   onPersonSelected = selectedPerson => {
     this.setState({ selectedPerson });
@@ -36,19 +28,28 @@ export default class PeoplePage extends Component {
       return <ErrorIndicator />;
     }
 
+    const itemList = (
+      <ErrorBoundry>
+        <ItemList
+          onItemSelected={this.onPersonSelected}
+          getData={this.swapiService.getAllPeople}
+        >
+          {item => `${item.name} (${item.gender})`}
+        </ItemList>
+      </ErrorBoundry>
+    );
+
+    const personDetails = (
+      <ErrorBoundry>
+        <ItemDetails personId={this.state.selectedPerson} />
+      </ErrorBoundry>
+    );
+
+    // паттерн свойства-компоненты
     return (
-      <div className="row mb2">
-        <div className="col-md-6">
-          <ItemList
-            onItemSelected={this.onPersonSelected}
-            getData={this.swapiService.getAllPeople}
-            renderItem={item => `${item.name} (${item.gender})`}
-          />
-        </div>
-        <div className="col-md-6">
-          <PersonDetails personId={this.state.selectedPerson} />
-        </div>
-      </div>
+      <ErrorBoundry>
+        <RowEntity left={itemList} right={personDetails} />
+      </ErrorBoundry>
     );
   }
 }

@@ -4,7 +4,7 @@ import Spinner from '../Spinner';
 
 import './ItemList.css';
 
-// Список жителей планеты
+// Список сущностей (людей, планет, кораблей)
 export default class ItemList extends Component {
   // состояние компонента
   state = {
@@ -25,7 +25,7 @@ export default class ItemList extends Component {
   renderListItem(arr) {
     return arr.map(item => {
       const { id } = item;
-      const label = this.props.renderItem(item); // здесь применятся паттерн render-функция (см. файл patterns)
+      const label = this.props.children(item); // паттерн children (см. файл patterns)
       return (
         <li
           className="list-group-item"
@@ -56,5 +56,5 @@ export default class ItemList extends Component {
 ItemList.propTypes = {
   onItemSelected: PropTypes.func.isRequired,
   getData: PropTypes.func.isRequired,
-  renderItem: PropTypes.func.isRequired,
+  children: PropTypes.func.isRequired,
 };

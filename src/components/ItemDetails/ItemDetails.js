@@ -4,9 +4,9 @@ import SwapiService from '../../services/swapi-service';
 import Spinner from '../Spinner';
 import ErrorButton from '../ErrorButton';
 
-import './PersonDetails.css';
+import './ItemDetails.css';
 
-export default class PersonDetails extends Component {
+export default class ItemDetails extends Component {
   // состояние компонента
   state = {
     person: null, // характеристики персонажа
@@ -46,7 +46,7 @@ export default class PersonDetails extends Component {
     if (!this.state.person) {
       return (
         <React.Fragment>
-          <span>Select a person from list!</span>
+          <span>Select an entity from list!</span>
           <Spinner />
         </React.Fragment>
       );
@@ -83,7 +83,7 @@ export default class PersonDetails extends Component {
   }
 }
 
-PersonDetails.propTypes = {
+ItemDetails.propTypes = {
   personId: PropTypes.string,
   id: PropTypes.string,
   name: PropTypes.string,

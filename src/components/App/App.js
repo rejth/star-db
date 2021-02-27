@@ -3,6 +3,7 @@ import Header from '../Header';
 import RandomPlanet from '../RandomPlanet';
 import ErrorIndicator from '../ErrorIndicator';
 import ErrorButton from '../ErrorButton';
+import ErrorBoundry from '../ErrorBoundry';
 import PeoplePage from '../PeoplePage';
 
 import './App.css';
@@ -24,27 +25,31 @@ export default class App extends Component {
   }
 
   render() {
-    if (this.state.hasError) {
-      return <ErrorIndicator />;
-    }
+    if (this.state.hasError) return <ErrorIndicator />;
 
     const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
 
-    return (
-      <div className="stardb-app">
-        <Header />
-        {planet}
-        <div className="row mb2 button-row">
-          <button
-            className="toggle-planet btn btn-warning btn-lg"
-            onClick={this.toggleRandomPlanet}
-          >
-            Toggle Random Planet
-          </button>
-          <ErrorButton />
-        </div>
-        <PeoplePage />
+    const buttons = (
+      <div className="row mb2 button-row">
+        <button
+          className="toggle-planet btn btn-warning btn-lg"
+          onClick={this.toggleRandomPlanet}
+        >
+          Toggle Random Planet
+        </button>
+        <ErrorButton />
       </div>
+    );
+
+    return (
+      <ErrorBoundry>
+        <div className="stardb-app">
+          <Header />
+          {planet}
+          {buttons}
+          <PeoplePage />
+        </div>
+      </ErrorBoundry>
     );
   }
 }
