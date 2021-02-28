@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import SwapiService from '../../services/swapi-service';
 import ItemList from '../ItemList';
-import ItemDetails from '../ItemDetails';
 import RowEntity from '../RowEntity';
-import RecordItem from '../RecordItem';
+import CommonLists from '../sw-components';
 import ErrorIndicator from '../ErrorIndicator';
 import ErrorBoundry from '../ErrorBoundry';
 
@@ -22,13 +20,9 @@ export default class PeoplePage extends Component {
   };
 
   render() {
-    if (this.state.hasError) {
-      return <ErrorIndicator />;
-    }
+    if (this.state.hasError) return <ErrorIndicator />;
 
     const { selectedPerson } = this.state;
-
-    const { getPerson, getPersonImageUrl } = new SwapiService();
 
     const itemList = (
       <ErrorBoundry>
@@ -40,19 +34,7 @@ export default class PeoplePage extends Component {
 
     const personDetails = (
       <ErrorBoundry>
-        <ItemDetails
-          itemId={selectedPerson}
-          getData={getPerson}
-          getImageUrl={getPersonImageUrl}
-        >
-          <RecordItem field="gender" label="Gender" />
-          <RecordItem field="birthYear" label="Birth Year" />
-          <RecordItem field="eyeColor" label="Eye color" />
-          <RecordItem field="hairColor" label="Hair Color" />
-          <RecordItem field="skinColor" label="Skin Color" />
-          <RecordItem field="height" label="Height" />
-          <RecordItem field="mass" label="Mass" />
-        </ItemDetails>
+        <CommonLists.PersonDetails id={selectedPerson} />
       </ErrorBoundry>
     );
 

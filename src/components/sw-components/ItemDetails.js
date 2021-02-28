@@ -15,7 +15,7 @@ const {
   getPlanetImageUrl,
 } = swapiService;
 
-const PeopleDetails = ({ id }) => (
+const PersonDetails = ({ id }) => (
   <ItemDetails itemId={id} getData={getPerson} getImageUrl={getPersonImageUrl}>
     <RecordItem field="gender" label="Gender" />
     <RecordItem field="birthYear" label="Birth Year" />
@@ -27,7 +27,7 @@ const PeopleDetails = ({ id }) => (
   </ItemDetails>
 );
 
-const StarshipsDetails = ({ id }) => (
+const StarshipDetails = ({ id }) => (
   <ItemDetails
     itemId={id}
     getData={getStarship}
@@ -43,7 +43,7 @@ const StarshipsDetails = ({ id }) => (
   </ItemDetails>
 );
 
-const PlanetsDetails = ({ id }) => (
+const PlanetDetails = ({ id }) => (
   <ItemDetails itemId={id} getData={getPlanet} getImageUrl={getPlanetImageUrl}>
     <RecordItem field="population" label="Population" />
     <RecordItem field="rotationPeriod" label="Rotation period" />
@@ -52,16 +52,16 @@ const PlanetsDetails = ({ id }) => (
   </ItemDetails>
 );
 
-PeopleDetails.propTypes = {
+PersonDetails.propTypes = {
   id: PropTypes.string,
 };
 
-StarshipsDetails.propTypes = {
+StarshipDetails.propTypes = {
   id: PropTypes.string,
 };
 
-PlanetsDetails.propTypes = {
+PlanetDetails.propTypes = {
   id: PropTypes.string,
 };
 
-export { PeopleDetails, StarshipsDetails, PlanetsDetails };
+export { PersonDetails, StarshipDetails, PlanetDetails };
