@@ -9,7 +9,7 @@ export default class ItemDetails extends Component {
   // состояние компонента
   state = {
     item: null, // характеристики сущности {}
-    image: '', // картинка сущности
+    image: null, // картинка сущности
   };
 
   // обновление карточки сущности

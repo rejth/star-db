@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Spinner from '../Spinner';
 
-const ComponentWrapper = (View, getData) =>
+const ItemListWrapper = (View, getData) =>
   class Wrapper extends Component {
     state = {
-      data: null,
+      data: null, // список сущностей (людей, планет, кораблей)
     };
 
     // componentDidMount() - best practice для получения данных от сервера по API
@@ -25,4 +25,4 @@ const ComponentWrapper = (View, getData) =>
     }
   };
 
-export default ComponentWrapper;
+export default ItemListWrapper;

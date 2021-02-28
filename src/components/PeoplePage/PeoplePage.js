@@ -3,7 +3,7 @@ import SwapiService from '../../services/swapi-service';
 import ItemList from '../ItemList';
 import ItemDetails from '../ItemDetails';
 import RowEntity from '../RowEntity';
-import RowItem from '../RowItem';
+import RecordItem from '../RecordItem';
 import ErrorIndicator from '../ErrorIndicator';
 import ErrorBoundry from '../ErrorBoundry';
 
@@ -45,13 +45,13 @@ export default class PeoplePage extends Component {
           getData={getPerson}
           getImageUrl={getPersonImageUrl}
         >
-          <RowItem field="gender" label="Gender" />
-          <RowItem field="birthYear" label="Birth Year" />
-          <RowItem field="eyeColor" label="Eye color" />
-          <RowItem field="hairColor" label="Hair Color" />
-          <RowItem field="skinColor" label="Skin Color" />
-          <RowItem field="height" label="Height" />
-          <RowItem field="mass" label="Mass" />
+          <RecordItem field="gender" label="Gender" />
+          <RecordItem field="birthYear" label="Birth Year" />
+          <RecordItem field="eyeColor" label="Eye color" />
+          <RecordItem field="hairColor" label="Hair Color" />
+          <RecordItem field="skinColor" label="Skin Color" />
+          <RecordItem field="height" label="Height" />
+          <RecordItem field="mass" label="Mass" />
         </ItemDetails>
       </ErrorBoundry>
     );

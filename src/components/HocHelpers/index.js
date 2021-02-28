@@ -1,3 +1,3 @@
-import ComponentWrapper from './ComponentWrapper';
+import ItemListWrapper from './ComponentWrapper';
 
-export default ComponentWrapper;
+export default ItemListWrapper;
