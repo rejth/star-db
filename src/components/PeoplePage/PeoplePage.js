@@ -3,6 +3,7 @@ import SwapiService from '../../services/swapi-service';
 import ItemList from '../ItemList';
 import ItemDetails from '../ItemDetails';
 import RowEntity from '../RowEntity';
+import RowItem from '../RowItem';
 import ErrorIndicator from '../ErrorIndicator';
 import ErrorBoundry from '../ErrorBoundry';
 
@@ -45,7 +46,11 @@ export default class PeoplePage extends Component {
           itemId={this.state.selectedPerson}
           getData={this.swapiService.getPerson}
           getImageUrl={this.swapiService.getPersonImageUrl}
-        />
+        >
+          <RowItem field="gender" label="Gender" />
+          <RowItem field="birthYear" label="Birth Year" />
+          <RowItem field="eyeColor" label="Eye color" />
+        </ItemDetails>
       </ErrorBoundry>
     );
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Children } from 'react';
 import PropTypes from 'prop-types';
 import Spinner from '../Spinner';
 import ErrorButton from '../ErrorButton';
@@ -49,9 +49,9 @@ export default class ItemDetails extends Component {
       );
     }
 
-    const { name, gender, birthYear, eyeColor } = this.state.item;
+    const { item, image } = this.state;
 
-    const image = this.state.image;
+    const { name } = item;
 
     return (
       <div className="item-details card">
@@ -59,18 +59,9 @@ export default class ItemDetails extends Component {
         <div className="card-body">
           <h3>{name}</h3>
           <ul className="list-group list-group-flush">
-            <li className="list-group-item">
-              <span className="term">Gender</span>
-              <span>{gender}</span>
-            </li>
-            <li className="list-group-item">
-              <span className="term">Birth Year</span>
-              <span>{birthYear}</span>
-            </li>
-            <li className="list-group-item">
-              <span className="term">Eye color</span>
-              <span>{eyeColor}</span>
-            </li>
+            {Children.map(this.props.children, child =>
+              React.cloneElement(child, { item })
+            )}
           </ul>
           <ErrorButton />
         </div>
@@ -82,9 +73,7 @@ export default class ItemDetails extends Component {
 ItemDetails.propTypes = {
   itemId: PropTypes.string,
   name: PropTypes.string,
-  gender: PropTypes.string,
-  birthYear: PropTypes.string,
-  eyeColor: PropTypes.string,
   getData: PropTypes.func.isRequired,
   getImageUrl: PropTypes.func.isRequired,
+  children: PropTypes.array.isRequired,
 };
