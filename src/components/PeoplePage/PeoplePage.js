@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import ItemList from '../ItemList';
 import RowEntity from '../RowEntity';
-import CommonLists from '../sw-components';
+import CommonLists from '../CommonComponents';
 import ErrorIndicator from '../ErrorIndicator';
 import ErrorBoundry from '../ErrorBoundry';
 
@@ -20,15 +19,15 @@ export default class PeoplePage extends Component {
   };
 
   render() {
-    if (this.state.hasError) return <ErrorIndicator />;
+    const { selectedPerson, hasError } = this.state;
 
-    const { selectedPerson } = this.state;
+    if (hasError) return <ErrorIndicator />;
 
-    const itemList = (
+    const peopleList = (
       <ErrorBoundry>
-        <ItemList onItemSelected={this.onPersonSelected}>
+        <CommonLists.PeopleList onItemSelected={this.onPersonSelected}>
           {item => `${item.name} (${item.gender})`}
-        </ItemList>
+        </CommonLists.PeopleList>
       </ErrorBoundry>
     );
 
@@ -41,7 +40,7 @@ export default class PeoplePage extends Component {
     // паттерн свойства-компоненты
     return (
       <ErrorBoundry>
-        <RowEntity left={itemList} right={personDetails} />
+        <RowEntity left={peopleList} right={personDetails} />
       </ErrorBoundry>
     );
   }

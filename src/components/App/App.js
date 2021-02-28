@@ -25,9 +25,11 @@ export default class App extends Component {
   }
 
   render() {
-    if (this.state.hasError) return <ErrorIndicator />;
+    const { showRandomPlanet, hasError } = this.state;
 
-    const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
+    if (hasError) return <ErrorIndicator />;
+
+    const planet = showRandomPlanet ? <RandomPlanet /> : null;
 
     const buttons = (
       <div className="row mb2 button-row">
