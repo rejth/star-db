@@ -80,25 +80,30 @@ export default class SwapiService {
     population: planet.population,
     rotationPeriod: planet.rotation_period,
     diameter: planet.diameter,
+    terrain: planet.terrain,
   });
 
   _transformStarship = starship => ({
     id: this._getExtractId(starship),
     name: starship.name,
     model: starship.model,
+    starshipClass: starship.starship_class,
     manufacturer: starship.manufacturer,
-    costInCredits: starship.costInCredits,
+    costInCredits: starship.cost_in_credits,
     length: starship.length,
     crew: starship.crew,
     passengers: starship.passengers,
-    cargoCapacity: starship.cargoCapacity,
   });
 
   _transformPerson = person => ({
     id: this._getExtractId(person),
     name: person.name,
     gender: person.gender,
-    birthYear: person.birthYear,
-    eyeColor: person.eyeColor,
+    birthYear: person.birth_year,
+    eyeColor: person.eye_color,
+    hairColor: person.hair_color,
+    skinColor: person.skin_color,
+    height: person.height,
+    mass: person.mass,
   });
 }

@@ -17,9 +17,6 @@ export default class PeoplePage extends Component {
     selectedPerson: '3',
   };
 
-  // API
-  swapiService = new SwapiService();
-
   onPersonSelected = selectedPerson => {
     this.setState({ selectedPerson });
   };
@@ -29,12 +26,13 @@ export default class PeoplePage extends Component {
       return <ErrorIndicator />;
     }
 
+    const { selectedPerson } = this.state;
+
+    const { getPerson, getPersonImageUrl } = new SwapiService();
+
     const itemList = (
       <ErrorBoundry>
-        <ItemList
-          onItemSelected={this.onPersonSelected}
-          getData={this.swapiService.getAllPeople}
-        >
+        <ItemList onItemSelected={this.onPersonSelected}>
           {item => `${item.name} (${item.gender})`}
         </ItemList>
       </ErrorBoundry>
@@ -43,13 +41,17 @@ export default class PeoplePage extends Component {
     const personDetails = (
       <ErrorBoundry>
         <ItemDetails
-          itemId={this.state.selectedPerson}
-          getData={this.swapiService.getPerson}
-          getImageUrl={this.swapiService.getPersonImageUrl}
+          itemId={selectedPerson}
+          getData={getPerson}
+          getImageUrl={getPersonImageUrl}
         >
           <RowItem field="gender" label="Gender" />
           <RowItem field="birthYear" label="Birth Year" />
           <RowItem field="eyeColor" label="Eye color" />
+          <RowItem field="hairColor" label="Hair Color" />
+          <RowItem field="skinColor" label="Skin Color" />
+          <RowItem field="height" label="Height" />
+          <RowItem field="mass" label="Mass" />
         </ItemDetails>
       </ErrorBoundry>
     );
