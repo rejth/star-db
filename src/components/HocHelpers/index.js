@@ -1,3 +1,4 @@
-import ItemListWrapper from './ComponentWrapper';
+import ItemListWrapper from './ItemListWrapper';
+import SwapiServiceWrapper from './SwapiServiceWrapper';
 
-export default ItemListWrapper;
+export { ItemListWrapper, SwapiServiceWrapper };
