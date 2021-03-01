@@ -1,12 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SwapiService from '../../services/swapi-service';
-import ComponentWrapper from '../HocHelpers';
-
 import './ItemList.css';
-
-// API
-const { getAllPeople } = new SwapiService();
 
 // список сущностей (людей, планет, кораблей)
 const ItemList = props => {
@@ -40,4 +34,4 @@ ItemList.propTypes = {
   data: PropTypes.array.isRequired,
 };
 
-export default ComponentWrapper(ItemList, getAllPeople);
+export default ItemList;

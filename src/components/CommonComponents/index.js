@@ -3,9 +3,9 @@ import {
   PersonDetails,
   StarshipDetails,
   PlanetDetails,
-} from './CommonItemDetails';
+} from './CommonItemsDetails';
 
-export default {
+export {
   PeopleList,
   StarshipsList,
   PlanetsList,

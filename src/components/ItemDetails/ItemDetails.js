@@ -71,7 +71,7 @@ export default class ItemDetails extends Component {
 }
 
 ItemDetails.propTypes = {
-  itemId: PropTypes.string,
+  itemId: PropTypes.string.isRequired,
   name: PropTypes.string,
   getData: PropTypes.func.isRequired,
   getImageUrl: PropTypes.func.isRequired,

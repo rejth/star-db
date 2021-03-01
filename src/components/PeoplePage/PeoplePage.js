@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import RowEntity from '../RowEntity';
-import CommonLists from '../CommonComponents';
+import { PeopleList, PersonDetails } from '../CommonComponents';
 import ErrorIndicator from '../ErrorIndicator';
 import ErrorBoundry from '../ErrorBoundry';
 
@@ -25,15 +25,15 @@ export default class PeoplePage extends Component {
 
     const peopleList = (
       <ErrorBoundry>
-        <CommonLists.PeopleList onItemSelected={this.onPersonSelected}>
+        <PeopleList onItemSelected={this.onPersonSelected}>
           {item => `${item.name} (${item.gender})`}
-        </CommonLists.PeopleList>
+        </PeopleList>
       </ErrorBoundry>
     );
 
     const personDetails = (
       <ErrorBoundry>
-        <CommonLists.PersonDetails id={selectedPerson} />
+        <PersonDetails id={selectedPerson} />
       </ErrorBoundry>
     );
 

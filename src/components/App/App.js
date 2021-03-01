@@ -5,7 +5,8 @@ import ErrorIndicator from '../ErrorIndicator';
 import ErrorButton from '../ErrorButton';
 import ErrorBoundry from '../ErrorBoundry';
 import PeoplePage from '../PeoplePage';
-
+import SwapiService from '../../services/swapi-service';
+import { SwapiServiceProvider } from '../SwapiServiceContext';
 import './App.css';
 
 export default class App extends Component {
@@ -13,6 +14,8 @@ export default class App extends Component {
     showRandomPlanet: true,
     hasError: false,
   };
+
+  swapiService = new SwapiService();
 
   toggleRandomPlanet = () => {
     this.setState(state => ({
@@ -45,12 +48,14 @@ export default class App extends Component {
 
     return (
       <ErrorBoundry>
-        <div className="stardb-app">
-          <Header />
-          {planet}
-          {buttons}
-          <PeoplePage />
-        </div>
+        <SwapiServiceProvider value={this.swapiService}>
+          <div className="stardb-app">
+            <Header />
+            {planet}
+            {buttons}
+            <PeoplePage />
+          </div>
+        </SwapiServiceProvider>
       </ErrorBoundry>
     );
   }
