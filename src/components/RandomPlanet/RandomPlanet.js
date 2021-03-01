@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import SwapiService from '../../services/swapi-service';
 import Spinner from '../Spinner';
 import ErrorBoundry from '../ErrorBoundry';
-
+import { SwapiServiceWrapper } from '../HocHelpers';
 import './RandomPlanet.css';
 
 // В этом компоненте используется паттерн "Разделение обязанностей"
@@ -13,23 +12,20 @@ import './RandomPlanet.css';
 // от основной логики, не знает откуда приходят данные
 
 // Карточка со случайной планетой
-export default class RandomPlanet extends Component {
+class RandomPlanet extends Component {
   // состояние компонента
   state = {
     planet: {}, // характеристики планеты
     loading: true, // индикатор загрузки
   };
 
-  // API
-  swapiService = new SwapiService();
-
   // обновление состояния компонента по API
   updatePlanet = () => {
+    const { getPlanet } = this.props.swapiService;
     // случайный id планеты
     const id = Math.floor(Math.random() * 25) + 3;
     // запрос к серверу
-    this.swapiService
-      .getPlanet(id)
+    getPlanet(id)
       .then(planet => this.setState({ planet, loading: false }))
       .catch(() => this.setState({ loading: false }));
   };
@@ -98,6 +94,12 @@ const PlanetView = ({ planet }) => {
   );
 };
 
+RandomPlanet.propTypes = {
+  swapiService: PropTypes.object.isRequired,
+};
+
 PlanetView.propTypes = {
   planet: PropTypes.object.isRequired,
 };
+
+export default SwapiServiceWrapper(RandomPlanet);
