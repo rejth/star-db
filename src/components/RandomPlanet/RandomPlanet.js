@@ -107,4 +107,4 @@ PlanetView.propTypes = {
   planet: PropTypes.object.isRequired,
 };
 
-export default SwapiServiceWrapper(RandomPlanet, mapMethodsToProps);
+export default SwapiServiceWrapper(mapMethodsToProps)(RandomPlanet);

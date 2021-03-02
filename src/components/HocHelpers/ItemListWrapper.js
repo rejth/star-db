@@ -4,7 +4,7 @@ import Spinner from '../Spinner';
 import ErrorIndicator from '../ErrorIndicator';
 
 const ItemListWrapper = View =>
-  class Wrapper extends Component {
+  class Consumer extends Component {
     state = {
       data: null, // список сущностей (людей, планет или кораблей)
       loading: true,

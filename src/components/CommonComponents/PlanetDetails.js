@@ -23,4 +23,4 @@ PlanetDetails.propTypes = {
   swapiService: PropTypes.object.isRequired,
 };
 
-export default SwapiServiceWrapper(PlanetDetails, mapMethodsToProps);
+export default SwapiServiceWrapper(mapMethodsToProps)(PlanetDetails);

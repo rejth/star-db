@@ -26,4 +26,4 @@ StarshipDetails.propTypes = {
   swapiService: PropTypes.object.isRequired,
 };
 
-export default SwapiServiceWrapper(StarshipDetails, mapMethodsToProps);
+export default SwapiServiceWrapper(mapMethodsToProps)(StarshipDetails);
