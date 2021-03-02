@@ -15,7 +15,7 @@ const ErrorIndicator = () => (
       </div>
     </div>
     <span className="error-message">
-      <div>Something has gone wrong!</div>
+      <div>BOOM! Something has gone wrong!</div>
       <div>(but we already sent droids to fix it)</div>
     </span>
   </div>

@@ -4,25 +4,23 @@ import ItemDetails from '../ItemDetails';
 import RecordItem from '../RecordItem';
 import { SwapiServiceWrapper } from '../HocHelpers';
 
-const PlanetDetails = ({ id, swapiService }) => {
-  const { getPlanet, getPlanetImageUrl } = swapiService;
-  return (
-    <ItemDetails
-      itemId={id}
-      getData={getPlanet}
-      getImageUrl={getPlanetImageUrl}
-    >
-      <RecordItem field="population" label="Population" />
-      <RecordItem field="rotationPeriod" label="Rotation period" />
-      <RecordItem field="diameter" label="Diameter" />
-      <RecordItem field="terrain" label="Terrain" />
-    </ItemDetails>
-  );
-};
+const PlanetDetails = props => (
+  <ItemDetails {...props}>
+    <RecordItem field="population" label="Population" />
+    <RecordItem field="rotationPeriod" label="Rotation period" />
+    <RecordItem field="diameter" label="Diameter" />
+    <RecordItem field="terrain" label="Terrain" />
+  </ItemDetails>
+);
+
+const mapMethodsToProps = swapiService => ({
+  getData: swapiService.getPlanet,
+  getImageUrl: swapiService.getPlanetImageUrl,
+});
 
 PlanetDetails.propTypes = {
   id: PropTypes.string.isRequired,
   swapiService: PropTypes.object.isRequired,
 };
 
-export default SwapiServiceWrapper(PlanetDetails);
+export default SwapiServiceWrapper(PlanetDetails, mapMethodsToProps);

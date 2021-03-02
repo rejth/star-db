@@ -7,7 +7,7 @@ export default class ErrorButton extends Component {
 
   render() {
     if (this.state.renderError) {
-      this.foo.bar = 0; // fake error
+      this.foo.bar = 0; // fake error for testing
     }
 
     return (

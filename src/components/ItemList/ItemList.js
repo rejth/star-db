@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ErrorBoundry from '../ErrorBoundry';
 import './ItemList.css';
 
-// список сущностей (людей, планет, кораблей)
+// список всех сущностей (людей, планет или кораблей)
 const ItemList = props => {
   const { data, onItemSelected, children: renderLabel } = props;
 
   // функция для создания элемента списка
   const items = data.map(item => {
     const { id } = item;
-    const label = renderLabel(item); // паттерн children (см. файл patterns)
+    const label = renderLabel(item); // паттерн children
+
     return (
       <li
         className="list-group-item"
@@ -22,9 +24,11 @@ const ItemList = props => {
   });
 
   return (
-    <div className="item-list">
-      <ul className="list-group">{items}</ul>
-    </div>
+    <ErrorBoundry>
+      <div className="item-list">
+        <ul className="list-group">{items}</ul>
+      </div>
+    </ErrorBoundry>
   );
 };
 

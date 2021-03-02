@@ -1,12 +1,10 @@
 import React, { Component, Children } from 'react';
 import PropTypes from 'prop-types';
 import Spinner from '../Spinner';
-import ErrorButton from '../ErrorButton';
-
+import ErrorBoundry from '../ErrorBoundry';
 import './ItemDetails.css';
 
 export default class ItemDetails extends Component {
-  // состояние компонента
   state = {
     item: null, // характеристики сущности {}
     image: null, // картинка сущности
@@ -15,6 +13,7 @@ export default class ItemDetails extends Component {
   // обновление карточки сущности
   updateItemDetails() {
     const { id, getData, getImageUrl } = this.props;
+
     if (!id) return;
 
     getData(id).then(item => {
@@ -37,9 +36,11 @@ export default class ItemDetails extends Component {
   }
 
   render() {
+    const { item, image } = this.state;
+
     // при первой инцициализации компонента id = null
     // чтобы избежать ошибки, делаем проверку
-    if (!this.state.item) {
+    if (!item) {
       return (
         <React.Fragment>
           <span>Select an item from list!</span>
@@ -48,23 +49,22 @@ export default class ItemDetails extends Component {
       );
     }
 
-    const { item, image } = this.state;
-
     const { name } = item;
 
     return (
-      <div className="item-details card">
-        <img className="item-image" src={image}></img>
-        <div className="card-body">
-          <h3>{name}</h3>
-          <ul className="list-group list-group-flush">
-            {Children.map(this.props.children, child =>
-              React.cloneElement(child, { item })
-            )}
-          </ul>
-          <ErrorButton />
+      <ErrorBoundry>
+        <div className="item-details card">
+          <img className="item-image" src={image}></img>
+          <div className="card-body">
+            <h3>{name}</h3>
+            <ul className="list-group list-group-flush">
+              {Children.map(this.props.children, child =>
+                React.cloneElement(child, { item })
+              )}
+            </ul>
+          </div>
         </div>
-      </div>
+      </ErrorBoundry>
     );
   }
 }

@@ -11,18 +11,17 @@ import './RandomPlanet.css';
 // компонент PlanetView отвечает только за контент, рендеринг содержимого и отделен
 // от основной логики, не знает откуда приходят данные
 
-// Карточка со случайной планетой
 class RandomPlanet extends Component {
-  // состояние компонента
   state = {
     planet: {}, // характеристики планеты
-    loading: true, // индикатор загрузки
+    loading: true,
   };
 
   // обновление состояния компонента по API
   updatePlanet = () => {
     const { getData } = this.props;
     const id = Math.floor(Math.random() * 25) + 3; // случайный id планеты
+
     // запрос к серверу
     getData(id)
       .then(planet => this.setState({ planet, loading: false }))
@@ -45,7 +44,6 @@ class RandomPlanet extends Component {
   render() {
     const { planet, loading } = this.state;
     const hasData = !loading;
-
     const spinner = loading ? <Spinner /> : null;
     const content = hasData ? <PlanetView planet={planet} /> : null;
 
@@ -62,7 +60,7 @@ class RandomPlanet extends Component {
 
 // Компонент с информацией о планете
 const PlanetView = ({ planet }) => {
-  const { id, name, population, rotationPeriod, diameter } = planet;
+  const { id, name, population, rotationPeriod, diameter, terrain } = planet;
 
   // React.Fragment позволяет группировать JSX-компоненты, не создавая дополнительного DOM-объекта
   // Иначе пришлось бы создавать обертку div, потому что компонент может рендерить только корневой DOM-объект
@@ -86,6 +84,10 @@ const PlanetView = ({ planet }) => {
           <li className="list-group-item">
             <span className="term">Diameter</span>
             <span>{diameter}</span>
+          </li>
+          <li className="list-group-item">
+            <span className="term">Terrain</span>
+            <span>{terrain}</span>
           </li>
         </ul>
       </div>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import RowEntity from '../RowEntity';
-import { PeopleList, PersonDetails } from '../CommonComponents';
-import ErrorIndicator from '../ErrorIndicator';
+import { StarshipsList, StarshipDetails } from '../CommonComponents';
 import ErrorBoundry from '../ErrorBoundry';
 
 // этот компонент нужен для реализации паттерна Error Boundary, чтобы функция componentDidCatch() в App,
@@ -9,38 +8,30 @@ import ErrorBoundry from '../ErrorBoundry';
 // т.о. мы при возникновении ошибки в компоненте PeoplePage, другие компоненты будут работать,
 // потому что React пойдет по дереву DOM вверх, найдет ближайший componentDidCatch(), не дойдя до App
 // и выкинет предупреждени об именно в этом компоненте
-export default class PeoplePage extends Component {
+export default class StarshipsPage extends Component {
   state = {
-    selectedPerson: '3',
+    selectedItem: '3',
   };
 
-  onPersonSelected = selectedPerson => {
-    this.setState({ selectedPerson });
+  onItemSelected = selectedItem => {
+    this.setState({ selectedItem });
   };
 
   render() {
-    const { selectedPerson, hasError } = this.state;
+    const { selectedItem } = this.state;
 
-    if (hasError) return <ErrorIndicator />;
-
-    const peopleList = (
-      <ErrorBoundry>
-        <PeopleList onItemSelected={this.onPersonSelected}>
-          {item => `${item.name} (${item.gender})`}
-        </PeopleList>
-      </ErrorBoundry>
+    const itemList = (
+      <StarshipsList onItemSelected={this.onItemSelected}>
+        {item => `${item.name} (${item.gender})`}
+      </StarshipsList>
     );
 
-    const personDetails = (
-      <ErrorBoundry>
-        <PersonDetails id={selectedPerson} />
-      </ErrorBoundry>
-    );
+    const itemDetails = <StarshipDetails id={selectedItem} />;
 
     // паттерн свойства-компоненты
     return (
       <ErrorBoundry>
-        <RowEntity left={peopleList} right={personDetails} />
+        <RowEntity left={itemList} right={itemDetails} />
       </ErrorBoundry>
     );
   }
