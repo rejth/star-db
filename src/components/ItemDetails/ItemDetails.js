@@ -14,12 +14,11 @@ export default class ItemDetails extends Component {
 
   // обновление карточки сущности
   updateItemDetails() {
-    const { itemId, getData, getImageUrl } = this.props;
+    const { id, getData, getImageUrl } = this.props;
+    if (!id) return;
 
-    if (!itemId) return;
-
-    getData(itemId).then(item => {
-      this.setState({ item, image: getImageUrl(itemId) });
+    getData(id).then(item => {
+      this.setState({ item, image: getImageUrl(id) });
     });
   }
 
@@ -32,7 +31,7 @@ export default class ItemDetails extends Component {
   componentDidUpdate(prevProps) {
     // условие нужно, чтобы не было бесконечного цикла в результате обновления state и
     // последующего вызова componentDidUpdate(), что в свою очередь снова вызовет обновление state и т.д.
-    if (this.props.itemId !== prevProps.itemId) {
+    if (this.props.id !== prevProps.id) {
       this.updateItemDetails();
     }
   }
@@ -71,8 +70,7 @@ export default class ItemDetails extends Component {
 }
 
 ItemDetails.propTypes = {
-  itemId: PropTypes.string.isRequired,
-  name: PropTypes.string,
+  id: PropTypes.string.isRequired,
   getData: PropTypes.func.isRequired,
   getImageUrl: PropTypes.func.isRequired,
   children: PropTypes.array.isRequired,

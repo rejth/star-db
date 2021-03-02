@@ -1,13 +1,31 @@
 import ItemList from '../ItemList';
-import { ItemListWrapper } from '../HocHelpers';
-import SwapiService from '../../services/swapi-service';
+import { ItemListWrapper, SwapiServiceWrapper } from '../HocHelpers';
 
-const { getAllPeople, getAllStarships, getAllPlanets } = new SwapiService();
+const mapPeopleMethodsToProps = swapiService => ({
+  getData: swapiService.getAllPeople,
+});
 
-const PeopleList = ItemListWrapper(ItemList, getAllPeople);
+const mapStarshipsMethodsToProps = swapiService => ({
+  getData: swapiService.getAllSrarships,
+});
 
-const StarshipsList = ItemListWrapper(ItemList, getAllStarships);
+const mapPlanetsMethodsToProps = swapiService => ({
+  getData: swapiService.getAllPlanets,
+});
 
-const PlanetsList = ItemListWrapper(ItemList, getAllPlanets);
+const PeopleList = SwapiServiceWrapper(
+  ItemListWrapper(ItemList),
+  mapPeopleMethodsToProps
+);
+
+const StarshipsList = SwapiServiceWrapper(
+  ItemListWrapper(ItemList),
+  mapStarshipsMethodsToProps
+);
+
+const PlanetsList = SwapiServiceWrapper(
+  ItemListWrapper(ItemList),
+  mapPlanetsMethodsToProps
+);
 
 export { PeopleList, StarshipsList, PlanetsList };

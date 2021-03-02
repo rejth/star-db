@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Spinner from '../Spinner';
 
-const ItemListWrapper = (View, getData) =>
+const ItemListWrapper = View =>
   class Wrapper extends Component {
     state = {
       data: null, // список сущностей (людей, планет, кораблей)
@@ -9,6 +10,8 @@ const ItemListWrapper = (View, getData) =>
 
     // componentDidMount() - best practice для получения данных от сервера по API
     componentDidMount() {
+      /* eslint react/prop-types: 0 */
+      const { getData } = this.props;
       getData().then(data => {
         this.setState({
           data,
@@ -24,5 +27,9 @@ const ItemListWrapper = (View, getData) =>
       return <View {...this.props} data={data} />;
     }
   };
+
+ItemListWrapper.propTypes = {
+  getData: PropTypes.func.isRequired,
+};
 
 export default ItemListWrapper;

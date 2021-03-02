@@ -21,11 +21,10 @@ class RandomPlanet extends Component {
 
   // обновление состояния компонента по API
   updatePlanet = () => {
-    const { getPlanet } = this.props.swapiService;
-    // случайный id планеты
-    const id = Math.floor(Math.random() * 25) + 3;
+    const { getData } = this.props;
+    const id = Math.floor(Math.random() * 25) + 3; // случайный id планеты
     // запрос к серверу
-    getPlanet(id)
+    getData(id)
       .then(planet => this.setState({ planet, loading: false }))
       .catch(() => this.setState({ loading: false }));
   };
@@ -94,12 +93,16 @@ const PlanetView = ({ planet }) => {
   );
 };
 
+const mapMethodsToProps = swapiService => ({
+  getData: swapiService.getPlanet,
+});
+
 RandomPlanet.propTypes = {
-  swapiService: PropTypes.object.isRequired,
+  getData: PropTypes.func.isRequired,
 };
 
 PlanetView.propTypes = {
   planet: PropTypes.object.isRequired,
 };
 
-export default SwapiServiceWrapper(RandomPlanet);
+export default SwapiServiceWrapper(RandomPlanet, mapMethodsToProps);
