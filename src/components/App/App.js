@@ -1,7 +1,8 @@
 import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from '../Header';
 import RandomPlanet from '../RandomPlanet';
-import { PeoplePage } from '../Pages';
+import { PeoplePage, PlanetsPage, StarshipsPage } from '../Pages';
 import ErrorBoundry from '../ErrorBoundry';
 import SwapiService from '../../services/swapi-service';
 import { SwapiServiceProvider } from '../SwapiServiceContext';
@@ -12,11 +13,20 @@ const App = () => {
   return (
     <ErrorBoundry>
       <SwapiServiceProvider value={swapiService}>
-        <div className="stardb-app">
-          <Header />
-          <RandomPlanet />
-          <PeoplePage />
-        </div>
+        <Router>
+          <div className="stardb-app">
+            <Header />
+            <RandomPlanet />
+            <Route
+              path="/"
+              exact={true}
+              render={() => <h2>Welcome to StarDB</h2>}
+            />
+            <Route path="/people" component={PeoplePage} />
+            <Route path="/planets" component={PlanetsPage} />
+            <Route path="/starships" component={StarshipsPage} />
+          </div>
+        </Router>
       </SwapiServiceProvider>
     </ErrorBoundry>
   );

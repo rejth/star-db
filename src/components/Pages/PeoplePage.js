@@ -10,7 +10,7 @@ import ErrorBoundry from '../ErrorBoundry';
 // и выкинет предупреждени об именно в этом компоненте
 export default class PeoplePage extends Component {
   state = {
-    selectedItem: '3',
+    selectedItem: '5',
   };
 
   onItemSelected = selectedItem => {

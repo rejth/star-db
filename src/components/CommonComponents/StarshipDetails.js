@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ItemDetails from '../ItemDetails';
 import RecordItem from '../RecordItem';
 import { SwapiServiceWrapper } from '../HocHelpers';
@@ -20,10 +19,5 @@ const mapMethodsToProps = swapiService => ({
   getData: swapiService.getStarship,
   getImageUrl: swapiService.getStarshipImageUrl,
 });
-
-StarshipDetails.propTypes = {
-  id: PropTypes.string.isRequired,
-  swapiService: PropTypes.object.isRequired,
-};
 
 export default SwapiServiceWrapper(mapMethodsToProps)(StarshipDetails);

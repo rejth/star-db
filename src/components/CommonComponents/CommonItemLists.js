@@ -6,7 +6,7 @@ const mapPeopleMethodsToProps = swapiService => ({
 });
 
 const mapStarshipsMethodsToProps = swapiService => ({
-  getData: swapiService.getAllSrarships,
+  getData: swapiService.getAllStarships,
 });
 
 const mapPlanetsMethodsToProps = swapiService => ({

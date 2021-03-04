@@ -60,7 +60,7 @@ export default class SwapiService {
   // получение всех космических кораблей
   getAllStarships = async () => {
     const response = await this.getResource('/starships/');
-    return response.results;
+    return response.results.map(this._transformStarship);
   };
 
   // получение конкретного корабля

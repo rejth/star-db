@@ -10,7 +10,7 @@ import ErrorBoundry from '../ErrorBoundry';
 // и выкинет предупреждени об именно в этом компоненте
 export default class StarshipsPage extends Component {
   state = {
-    selectedItem: '3',
+    selectedItem: '5',
   };
 
   onItemSelected = selectedItem => {
@@ -22,7 +22,7 @@ export default class StarshipsPage extends Component {
 
     const itemList = (
       <StarshipsList onItemSelected={this.onItemSelected}>
-        {item => `${item.name} (${item.gender})`}
+        {item => `${item.name} (${item.model})`}
       </StarshipsList>
     );
 
