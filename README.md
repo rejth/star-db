@@ -1,3 +1,3 @@
-# Start Wars Database React App
+# Star Wars Wiki
 
-Приложение "Stars Wars Wiki" на React
+Приложение "Star Wars Wiki" на React + React Router + SWAPI API
