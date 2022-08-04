@@ -1,7 +1,7 @@
 # 💻 Start Wars wiki overview
 
-This is a pretty simple Start Wars wiki app built on React./
-App gives the ability to learn some information about Star Wars people, planet and starships./
+This is a pretty simple Start Wars wiki app built on React.\
+App gives the ability to learn some information about Star Wars people, planet and starships.\
 App uses free API - [SWAPI API](https://swapi.dev/).
 
 ## Demo: [click](https://rejth.github.io/star-db/)
