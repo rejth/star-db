@@ -6,12 +6,12 @@ App uses free API - [SWAPI API](https://swapi.dev/).
 
 ## Demo: [click](https://rejth.github.io/star-db/)
 
-## 🛠 Fronend:
+## 🧱 Fronend:
   * React + Class components
   * ES6+
   * CSS
   
-## 🛠 Deployment:
+## 🌐 Deployment:
   * GitHub Pages
 
 ## Get Started
